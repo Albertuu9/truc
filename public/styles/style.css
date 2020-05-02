@@ -1,0 +1,9 @@
+body{
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.mytitle{
+    color: #555555;
+    font-size: 25px;
+}
