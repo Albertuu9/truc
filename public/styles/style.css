@@ -7,3 +7,8 @@ body{
     color: #555555;
     font-size: 25px;
 }
+
+.modal-header{
+    background-color: #FFAE19;
+    color: #ffffff;
+}
