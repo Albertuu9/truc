@@ -1,6 +1,8 @@
 <template>
     <div>
         <ModalLanguageComponent v-model="openModalLanguage"></ModalLanguageComponent>
+        <ModalRulesComponent v-model="openModalRules"></ModalRulesComponent>
+        <ModalRegisterInfoComponent v-model="openModalRegisterInfo"></ModalRegisterInfoComponent>
         <div class="header-wrapper">
             <div>
                 <img class="logo" src="./../../assets/logo.png"/>
@@ -38,27 +40,36 @@
                     <div class="content-text-game-card">
                         <h4 class="card-mytitle">{{ $t('home.titleRegisterGame') }}</h4>
                         <h5 class="subtitle-play-card mt-2 mb-1">{{ $t('home.descriptionRegisterGame') }}</h5>
-                        <v-icon class="float-right" small>info</v-icon>
+                        <v-icon class="float-right" small @click="openModals('registerInfo')">info</v-icon>
                     </div>
                 </div>
             </div>
             <div class="main-button separator-body-button">
                 <img src="./../../assets/play.png">
             </div>
+            <div class="footer subtitle pt-5 pb-2">
+               <h5 @click="openModals('rules')">{{ $t('home.rules') }}</h5>
+            </div>
         </div>
     </div>
 </template>
 <script>
-import ModalLanguageComponent from '@/components/home/ModalLanguageComponent'
+import ModalLanguageComponent from '@/components/home/ModalLanguageComponent';
+import ModalRulesComponent from '@/components/home/ModalRulesComponent';
+import ModalRegisterInfoComponent from '@/components/home/ModalRegisterInfoComponent'
 export default {
     name: 'Home',
     components:{
-        ModalLanguageComponent
+        ModalLanguageComponent,
+        ModalRulesComponent,
+        ModalRegisterInfoComponent
     },
     data(){
         return{
             cardSelected: '',
-            openModalLanguage: false
+            openModalLanguage: false,
+            openModalRules: false,
+            openModalRegisterInfo: false
         }
     },
     methods:{
@@ -78,6 +89,12 @@ export default {
             switch(value){
                 case 'languages':
                     this.openModalLanguage = true;
+                break;
+                case 'rules':
+                    this.openModalRules = true;
+                break;
+                case 'registerInfo':
+                    this.openModalRegisterInfo = true;
                 break;
             }
         }
@@ -177,5 +194,8 @@ export default {
 .logo{
     width: 140px;
     height: 50px
+}
+.footer{
+    width: 100%;
 }
 </style>
