@@ -9,7 +9,6 @@
             <v-icon @click="closeModal">close</v-icon>
           </v-btn>
         </v-card-title>
-
         <v-card-text class="mt-4">
           <h3>{{ $t('modalLanguage.header') }}</h3>
           <v-select
@@ -27,7 +26,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" @click="changeLanguage" text>{{ $t('modalLanguage.accept') }}</v-btn>
+          <v-btn color="primary" @click="changeLanguage" text>{{ $t('modalGeneric.accept') }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>

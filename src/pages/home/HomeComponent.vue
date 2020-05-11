@@ -3,6 +3,7 @@
         <ModalLanguageComponent v-model="openModalLanguage"></ModalLanguageComponent>
         <ModalRulesComponent v-model="openModalRules"></ModalRulesComponent>
         <ModalRegisterInfoComponent v-model="openModalRegisterInfo"></ModalRegisterInfoComponent>
+        <ModalAlertComponent v-model="openNotOptionSelected" :title="modalNotOptionSelectedData.title" :message="modalNotOptionSelectedData.message" :notCancelButton="true" @genericEvent="closeModalNotOptionSelected"></ModalAlertComponent>
         <div class="header-wrapper">
             <div>
                 <img class="logo" src="./../../assets/logo.png"/>
@@ -44,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="main-button separator-body-button">
+            <div class="main-button pt-5" @click="goToSelectedPath">
                 <img src="./../../assets/play.png">
             </div>
             <div class="footer subtitle pt-5 pb-2">
@@ -57,19 +58,26 @@
 import ModalLanguageComponent from '@/components/home/ModalLanguageComponent';
 import ModalRulesComponent from '@/components/home/ModalRulesComponent';
 import ModalRegisterInfoComponent from '@/components/home/ModalRegisterInfoComponent'
+import ModalAlertComponent from '@/components/generic/ModalAlertComponent';
 export default {
     name: 'Home',
     components:{
         ModalLanguageComponent,
         ModalRulesComponent,
-        ModalRegisterInfoComponent
+        ModalRegisterInfoComponent,
+        ModalAlertComponent
     },
     data(){
         return{
             cardSelected: '',
             openModalLanguage: false,
             openModalRules: false,
-            openModalRegisterInfo: false
+            openModalRegisterInfo: false,
+            openNotOptionSelected: false,
+            modalNotOptionSelectedData: {
+                title: this.$t('modalNotOptionSelected.title'),
+                message: this.$t('modalNotOptionSelected.message')
+            }
         }
     },
     methods:{
@@ -77,12 +85,22 @@ export default {
             this.cardSelected = id;
             document.getElementById(this.cardSelected).style.backgroundColor = '#eaeaea';
             document.getElementById(this.cardSelected).style.borderRadius = '20px';
-            if(this.cardSelected == 'register-card'){
+            if(this.cardSelected === 'register-card'){
                document.getElementById('play-card').style.backgroundColor = 'inherit';
                document.getElementsByClassName('section-text-game-card')[0].style.color = 'inherit';
             } else {
                document.getElementById('register-card').style.backgroundColor = 'inherit';
                document.getElementsByClassName('section-text-game-card')[0].style.color = 'inherit';
+            }
+        },
+        goToSelectedPath(){
+            switch(this.cardSelected){
+                case 'play-card':
+                    this.$router.push('game');
+                break;
+                default: 
+                    // abrimos una modal para indicar que seleccionen alguna opción
+                    this.openModals('notOptionSelected');
             }
         },
         openModals(value){
@@ -96,30 +114,18 @@ export default {
                 case 'registerInfo':
                     this.openModalRegisterInfo = true;
                 break;
+                case 'notOptionSelected':
+                    this.openNotOptionSelected = true;
+                break;
             }
+        },
+        closeModalNotOptionSelected(){
+            this.openNotOptionSelected = false;
         }
     }
 }
 </script>
 <style scoped>
-.header-wrapper{
-    align-items: center;
-    background-color: #FFAE19;
-    display: flex;
-    height: 75px;
-    width: 100%;
-}
-.header-wrapper div{
-    align-items: center;
-    color: white;
-    display: flex;
-    font-family: 'Arial black', Arial, sans-serif;
-    font-size: 20px;
-    font-weight: bolder;
-    justify-content: space-between;
-    margin: 0 auto;
-    width: 90%;
-}
 .body-wrapper{
     display: flex;
     justify-content: center;
@@ -151,9 +157,9 @@ export default {
     align-items: center; 
     border-top-right-radius: 20px; 
     border-bottom-right-radius: 20px; 
-    border-top: .5px solid #cccccc; 
-    border-bottom: .5px solid #cccccc; 
-    border-right: .5px solid #cccccc;
+    border-top: .5px solid #eaeaea; 
+    border-bottom: .5px solid #eaeaea; 
+    border-right: .5px solid #eaeaea;
     display: flex; 
     justify-content: center; 
     width: 65%; 

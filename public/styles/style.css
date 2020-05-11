@@ -16,3 +16,23 @@ body{
 .titleModal{
     font-size: 18px;
 }
+
+/* cabeceras */
+
+.header-wrapper{
+    align-items: center;
+    background-color: #FFAE19;
+    display: flex;
+    height: 75px;
+    width: 100%;
+}
+.header-wrapper div{
+    align-items: center;
+    color: white;
+    display: flex;
+    font-size: 20px;
+    font-weight: bolder;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 90%;
+}
